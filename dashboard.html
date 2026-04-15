@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard | Test Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="px-4 py-6 md:px-8">
+    <main class="mx-auto max-w-7xl">
+      <header class="glass-card flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-cyan-200/90">Student Dashboard</p>
+          <h1 id="studentName" class="text-2xl font-bold text-slate-100">Loading...</h1>
+          <p id="studentMeta" class="text-sm text-slate-300">Fetching profile...</p>
+        </div>
+        <button id="logoutBtn" class="btn-soft w-full md:w-auto">Logout</button>
+      </header>
+
+      <section class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="glass-card p-5">
+          <p class="text-sm text-slate-300">Tests Taken</p>
+          <p id="testsTaken" class="mt-2 text-3xl font-bold text-cyan-100">0</p>
+        </article>
+        <article class="glass-card p-5">
+          <p class="text-sm text-slate-300">Average Score</p>
+          <p id="averageScore" class="mt-2 text-3xl font-bold text-emerald-100">0</p>
+        </article>
+        <article class="glass-card p-5 md:col-span-2">
+          <p class="text-sm text-slate-300">
+            Class-based filter is active. You can only view tests assigned to your class.
+          </p>
+        </article>
+      </section>
+
+      <section class="mt-6 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Available Tests</h2>
+            <div id="testsList" class="mt-4 grid gap-4 md:grid-cols-2"></div>
+          </article>
+
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Discussions & Announcements</h2>
+            <div id="discussionList" class="mt-4 space-y-3"></div>
+          </article>
+        </div>
+
+        <div class="space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Results Snapshot</h2>
+            <div id="resultsList" class="mt-4 space-y-3"></div>
+          </article>
+
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Chat With Admin</h2>
+            <div id="chatList" class="scroll-area mt-4 rounded-xl border border-white/10 p-3"></div>
+            <form id="chatForm" class="mt-3 flex gap-2">
+              <input
+                id="chatInput"
+                class="input-glass"
+                placeholder="Type your message..."
+                maxlength="1000"
+                required
+              />
+              <button class="btn-primary shrink-0 px-5" type="submit">Send</button>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>
