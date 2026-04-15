@@ -1,27 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/index.js"
-    },
-    {
-      "src": "/dashboard",
-      "dest": "/dashboard.html"
-    },
-    {
-      "src": "/test",
-      "dest": "/test.html"
-    },
-    {
-      "src": "/admin",
-      "dest": "/admin.html"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/test", "destination": "/test.html" },
+    { "source": "/admin", "destination": "/admin.html" }
   ]
 }
