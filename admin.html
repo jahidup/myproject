@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Test Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="px-4 py-6 md:px-8">
+    <main class="mx-auto max-w-7xl">
+      <section id="adminAuthCard" class="glass-card mx-auto max-w-lg p-6 md:p-8 hidden">
+        <h1 class="text-2xl font-bold text-amber-100">Admin Login</h1>
+        <p class="mt-2 text-sm text-slate-300">Enter admin password to access control panel.</p>
+        <form id="adminLoginForm" class="mt-5 space-y-4">
+          <input
+            id="adminPasswordInput"
+            type="password"
+            class="input-glass"
+            placeholder="Admin password"
+            required
+          />
+          <button type="submit" class="btn-primary w-full">Login</button>
+        </form>
+      </section>
+
+      <section id="adminPanel" class="hidden">
+        <header class="glass-card flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.2em] text-cyan-200">Administrator</p>
+            <h1 class="text-3xl font-bold text-slate-100">Test Portal Admin Panel</h1>
+          </div>
+          <button id="adminLogoutBtn" class="btn-soft w-full lg:w-auto">Logout</button>
+        </header>
+
+        <nav class="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-7">
+          <button data-tab="overview" class="btn-soft border border-white/20">Overview</button>
+          <button data-tab="students" class="btn-soft border border-white/20">Students</button>
+          <button data-tab="tests" class="btn-soft border border-white/20">Tests</button>
+          <button data-tab="questions" class="btn-soft border border-white/20">Questions</button>
+          <button data-tab="results" class="btn-soft border border-white/20">Results</button>
+          <button data-tab="discussions" class="btn-soft border border-white/20">Discussions</button>
+          <button data-tab="messages" class="btn-soft border border-white/20">Messages</button>
+        </nav>
+
+        <section data-tab-content="overview" class="mt-5 space-y-4">
+          <div class="grid gap-4 md:grid-cols-3">
+            <article class="glass-card p-5">
+              <p class="text-sm text-slate-300">Total Students</p>
+              <p id="statsStudents" class="mt-2 text-3xl font-bold text-cyan-100">0</p>
+            </article>
+            <article class="glass-card p-5">
+              <p class="text-sm text-slate-300">Total Tests</p>
+              <p id="statsTests" class="mt-2 text-3xl font-bold text-emerald-100">0</p>
+            </article>
+            <article class="glass-card p-5">
+              <p class="text-sm text-slate-300">Total Questions</p>
+              <p id="statsQuestions" class="mt-2 text-3xl font-bold text-amber-100">0</p>
+            </article>
+          </div>
+          <article class="glass-card p-5">
+            <p class="text-sm text-slate-200">
+              Includes class-based test visibility, messaging, announcements, ranking, and block/unblock workflows.
+            </p>
+          </article>
+        </section>
+
+        <section data-tab-content="students" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Add Student</h2>
+            <form id="addStudentForm" class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <input class="input-glass" name="studentId" placeholder="Student ID" required />
+              <input class="input-glass" name="name" placeholder="Name" required />
+              <input class="input-glass" name="dob" placeholder="DOB (DDMMYYYY)" required />
+              <select class="input-glass" name="class" required>
+                <option value="">Select class</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+                <option value="11">Class 11</option>
+                <option value="12">Class 12</option>
+              </select>
+              <input class="input-glass" name="parentMobile" placeholder="Parent Mobile" required />
+              <button type="submit" class="btn-primary">Add Student</button>
+            </form>
+          </article>
+
+          <article class="glass-card p-5">
+            <div class="mb-3 flex items-center justify-between gap-3">
+              <h2 class="text-lg font-semibold text-cyan-100">Student Management</h2>
+              <input id="studentClassFilter" class="input-glass max-w-xs" placeholder="Filter by class" />
+            </div>
+            <div class="table-wrap">
+              <table class="min-w-full text-left">
+                <thead class="text-xs uppercase tracking-wide text-slate-300">
+                  <tr>
+                    <th class="py-2 pr-3">ID</th>
+                    <th class="py-2 pr-3">Name</th>
+                    <th class="py-2 pr-3">Class</th>
+                    <th class="py-2 pr-3">Parent Mobile</th>
+                    <th class="py-2 pr-3">DOB</th>
+                    <th class="py-2 pr-3">Status</th>
+                    <th class="py-2 pr-3">Edit</th>
+                    <th class="py-2 pr-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section data-tab-content="tests" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Create Test</h2>
+            <form id="addTestForm" class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <input class="input-glass" name="testId" placeholder="Test ID" required />
+              <input class="input-glass" name="title" placeholder="Test Name" required />
+              <select class="input-glass" name="class" required>
+                <option value="">Class Selection (MANDATORY)</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+                <option value="11">Class 11</option>
+                <option value="12">Class 12</option>
+              </select>
+              <input class="input-glass" name="duration" type="number" min="1" placeholder="Duration (minutes)" required />
+              <input class="input-glass" name="correct" type="number" placeholder="Correct marks" value="4" required />
+              <input class="input-glass" name="wrong" type="number" placeholder="Wrong marks" value="-1" required />
+              <input class="input-glass" name="skip" type="number" placeholder="Skip marks" value="0" required />
+              <label class="glass-card flex items-center gap-2 px-3 py-2 text-sm">
+                <input type="checkbox" name="shuffleQuestions" />
+                Shuffle questions
+              </label>
+              <button type="submit" class="btn-primary">Create Test</button>
+            </form>
+          </article>
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">All Tests</h2>
+            <div id="testsListAdmin" class="mt-4 grid gap-3 md:grid-cols-2"></div>
+          </article>
+        </section>
+
+        <section data-tab-content="questions" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Add Question (MCQ + Numerical)</h2>
+            <form id="addQuestionForm" class="mt-4 space-y-3">
+              <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                <select id="questionTestId" name="testId" class="input-glass" required></select>
+                <input class="input-glass" name="qId" placeholder="Question ID (Q1)" required />
+                <select id="questionType" name="type" class="input-glass" required>
+                  <option value="mcq">MCQ</option>
+                  <option value="numerical">Numerical</option>
+                </select>
+                <input class="input-glass" name="answer" placeholder="Correct answer" required />
+              </div>
+              <div class="grid gap-3 md:grid-cols-2">
+                <textarea class="input-glass min-h-24" name="questionEn" placeholder="Question (English)" required></textarea>
+                <textarea class="input-glass min-h-24" name="questionHi" placeholder="Question (Hindi)"></textarea>
+              </div>
+              <input class="input-glass" name="imageUrl" placeholder="Image URL (optional)" />
+              <div id="mcqOptionsWrap" class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                <input class="input-glass" name="optionA" placeholder="Option A" />
+                <input class="input-glass" name="optionB" placeholder="Option B" />
+                <input class="input-glass" name="optionC" placeholder="Option C" />
+                <input class="input-glass" name="optionD" placeholder="Option D" />
+              </div>
+              <button type="submit" class="btn-primary">Add Question</button>
+            </form>
+          </article>
+        </section>
+
+        <section data-tab-content="results" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <div class="flex flex-wrap items-center gap-3">
+              <h2 class="text-lg font-semibold text-cyan-100">Results & Ranking</h2>
+              <select id="resultsTestFilter" class="input-glass max-w-sm"></select>
+            </div>
+            <div class="table-wrap mt-4">
+              <table class="min-w-full text-left">
+                <thead class="text-xs uppercase tracking-wide text-slate-300">
+                  <tr>
+                    <th class="py-2 pr-3">Student</th>
+                    <th class="py-2 pr-3">Test</th>
+                    <th class="py-2 pr-3">Score</th>
+                    <th class="py-2 pr-3">Rank</th>
+                    <th class="py-2 pr-3">Correct</th>
+                    <th class="py-2 pr-3">Wrong</th>
+                    <th class="py-2 pr-3">Skip</th>
+                    <th class="py-2 pr-3">Updated</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section data-tab-content="discussions" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Post Announcement</h2>
+            <form id="discussionForm" class="mt-4 space-y-3">
+              <select name="testId" class="input-glass" required id="discussionTestId"></select>
+              <input class="input-glass" name="title" placeholder="Announcement title" required />
+              <textarea class="input-glass min-h-24" name="message" placeholder="Announcement message" required></textarea>
+              <button type="submit" class="btn-primary">Post</button>
+            </form>
+          </article>
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Announcement Feed</h2>
+            <div id="discussionFeed" class="mt-4 space-y-3"></div>
+          </article>
+        </section>
+
+        <section data-tab-content="messages" class="mt-5 hidden space-y-5">
+          <article class="glass-card p-5">
+            <h2 class="text-lg font-semibold text-cyan-100">Admin <-> Student Chat</h2>
+            <div class="mt-3 max-w-sm">
+              <select id="messageStudentId" class="input-glass"></select>
+            </div>
+            <div id="adminChatList" class="scroll-area mt-4 rounded-xl border border-white/10 p-3"></div>
+            <form id="adminChatForm" class="mt-3 flex gap-2">
+              <input
+                id="adminChatInput"
+                class="input-glass"
+                placeholder="Message selected student..."
+                maxlength="1000"
+                required
+              />
+              <button class="btn-primary shrink-0 px-5" type="submit">Send</button>
+            </form>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>
