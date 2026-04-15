@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Portal | Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="px-4 py-8 md:py-14">
+    <main class="mx-auto max-w-6xl">
+      <header class="mb-8 text-center fade-in">
+        <p class="glass-pill inline-flex items-center px-4 py-1 text-xs tracking-[0.16em] text-cyan-100 uppercase">
+          Secure Assessment Portal
+        </p>
+        <h1 class="mt-4 text-3xl font-bold text-slate-100 md:text-5xl">Test Portal Website</h1>
+        <p class="mt-3 text-sm text-slate-300 md:text-base">
+          Student login with Student ID + DOB and separate admin control panel.
+        </p>
+      </header>
+
+      <section class="grid gap-6 md:grid-cols-2">
+        <article class="glass-card p-6 md:p-8 slide-up">
+          <h2 class="text-xl font-semibold text-cyan-100">Student Login</h2>
+          <p class="mt-2 text-sm text-slate-300">Use Student ID and DOB in DDMMYYYY format.</p>
+
+          <form id="studentLoginForm" class="mt-6 space-y-4">
+            <div>
+              <label for="studentId" class="mb-1 block text-sm text-slate-200">Student ID</label>
+              <input id="studentId" name="studentId" class="input-glass" placeholder="STU1001" required />
+            </div>
+            <div>
+              <label for="studentDob" class="mb-1 block text-sm text-slate-200">Date of Birth (DDMMYYYY)</label>
+              <input
+                id="studentDob"
+                name="dob"
+                class="input-glass"
+                inputmode="numeric"
+                maxlength="8"
+                placeholder="01012010"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-primary w-full">Login as Student</button>
+          </form>
+        </article>
+
+        <article class="glass-card p-6 md:p-8 slide-up">
+          <h2 class="text-xl font-semibold text-amber-100">Admin Login</h2>
+          <p class="mt-2 text-sm text-slate-300">
+            Password-based admin access for student, test, and question management.
+          </p>
+
+          <form id="adminLoginForm" class="mt-6 space-y-4">
+            <div>
+              <label for="adminPassword" class="mb-1 block text-sm text-slate-200">Admin Password</label>
+              <input
+                id="adminPassword"
+                type="password"
+                class="input-glass"
+                placeholder="Enter admin password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-primary w-full">Login as Admin</button>
+          </form>
+
+          <div class="mt-5 rounded-xl border border-amber-400/30 bg-amber-500/10 p-3 text-xs text-amber-100">
+            Default local admin password (if env not set): <strong>admin@123</strong>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
